@@ -36,7 +36,8 @@ router.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
     // Generate token
-    const token = jwt.sign({ id: user._id }, 'secretKey', { expiresIn: '1h' });
+    // expiresIn: '1h': thời gian sống của token là 1 giờ
+    const token = jwt.sign({ id: user._id }, 'secretKey', { expiresIn: '1m' });
 
     res.json({ token });
   } catch (err) {
