@@ -2,7 +2,7 @@
 
 ---
 
-## ⚙️ Run project
+## Run project
 ```bash
 npm install
 node app.js
@@ -13,6 +13,26 @@ node app.js
 ## 🧪 Test with Postman
 
 ### Register
+#### Code Register
+
+```bash
+// Register
+router.post('/register', async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
+
+    res.json({ message: 'User registered successfully!' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+```
 **POST** `http://localhost:3000/api/register`  
 Body:
 ```json
